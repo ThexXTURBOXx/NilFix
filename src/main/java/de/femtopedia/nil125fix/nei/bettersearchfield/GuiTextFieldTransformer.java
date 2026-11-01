@@ -6,7 +6,7 @@ import nilloader.api.lib.asm.tree.ClassNode;
 import nilloader.api.lib.mini.annotation.Patch;
 
 @Patch.Class("net.minecraft.src.GuiTextField")
-public class WidgetTextFieldTransformer extends MiniPlusTransformer {
+public class GuiTextFieldTransformer extends MiniPlusTransformer {
 
     @Override
     protected boolean modifyClassStructure(ClassNode clazz) {
