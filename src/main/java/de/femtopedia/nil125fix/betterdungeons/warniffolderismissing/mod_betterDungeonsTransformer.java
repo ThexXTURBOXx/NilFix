@@ -39,8 +39,8 @@ public class mod_betterDungeonsTransformer extends MiniPlusTransformer {
             if (counter++ % 20 != 0) return;
 
             File configDir = new File(Minecraft.getMinecraftDir(), "Chocolate");
-            File buildingDir = new File(Minecraft.getMinecraftDir(), "Building");
-            File langDir = new File(Minecraft.getMinecraftDir(), "Lang");
+            File buildingDir = new File(configDir, "Building");
+            File langDir = new File(configDir, "Lang");
             if (!configDir.exists() || !configDir.isDirectory() ||
                 !buildingDir.exists() || !buildingDir.isDirectory() ||
                 !langDir.exists() || !langDir.isDirectory()) {
