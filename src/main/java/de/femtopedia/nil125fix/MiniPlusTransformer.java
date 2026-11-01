@@ -11,4 +11,9 @@ public abstract class MiniPlusTransformer extends MiniTransformer implements Plu
         PlusTransformer.removePrintlns(this, ctx);
     }
 
+    @Override
+    public void removePrintlns(PatchContext ctx, boolean alsoStdErr) {
+        PlusTransformer.removePrintlns(this, ctx, alsoStdErr);
+    }
+
 }

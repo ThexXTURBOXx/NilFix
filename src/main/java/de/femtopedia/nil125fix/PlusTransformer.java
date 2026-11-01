@@ -3,6 +3,8 @@ package de.femtopedia.nil125fix;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.InsnList;
@@ -19,39 +21,53 @@ public interface PlusTransformer {
 
     void removePrintlns(PatchContext ctx);
 
+    void removePrintlns(PatchContext ctx, boolean alsoStdErr);
+
     static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
-        while (true) {
-            PatchContext.SearchResult res = ctx.search(
-                    builder.GETSTATIC("java/lang/System", "out", "Ljava/io/PrintStream;")
-            );
-            if (!res.isSuccessful()) break;
+        removePrintlns(builder, ctx, false);
+    }
 
-            LabelNode Lskip = new LabelNode();
+    static void removePrintlns(InsnBuilder builder, PatchContext ctx, boolean alsoStdErr) {
+        List<String> streams = new ArrayList<>();
+        streams.add("out");
+        if (alsoStdErr) {
+            streams.add("err");
+        }
 
-            res.jumpBefore();
-            ctx.add(
-                    builder.GOTO(Lskip)
-            );
+        for (String stream : streams) {
+            while (true) {
+                PatchContext.SearchResult res = ctx.search(
+                        builder.GETSTATIC("java/lang/System", stream, "Ljava/io/PrintStream;")
+                );
+                if (!res.isSuccessful()) break;
 
-            boolean foundPrintln = false;
-            for (int k = ctx.getPointer(); k < ctx.getLength(); ++k) {
-                ctx.jumpForward(1);
-                AbstractInsnNode node = ctx.get();
-                if (!(node instanceof MethodInsnNode)) continue;
-                MethodInsnNode mn = (MethodInsnNode) node;
-                if (mn.owner.equals("java/io/PrintStream") && mn.name.equals("println")) {
-                    foundPrintln = true;
-                    break;
+                LabelNode Lskip = new LabelNode();
+
+                res.jumpBefore();
+                ctx.add(
+                        builder.GOTO(Lskip)
+                );
+
+                boolean foundPrintln = false;
+                for (int k = ctx.getPointer(); k < ctx.getLength(); ++k) {
+                    ctx.jumpForward(1);
+                    AbstractInsnNode node = ctx.get();
+                    if (!(node instanceof MethodInsnNode)) continue;
+                    MethodInsnNode mn = (MethodInsnNode) node;
+                    if (mn.owner.equals("java/io/PrintStream") && mn.name.equals("println")) {
+                        foundPrintln = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!foundPrintln) {
-                throw new IllegalArgumentException("Could not find matching println call!");
+                if (!foundPrintln) {
+                    throw new IllegalArgumentException("Could not find matching println call!");
+                }
+                ctx.jumpForward(1);
+                ctx.add(
+                        Lskip
+                );
             }
-            ctx.jumpForward(1);
-            ctx.add(
-                    Lskip
-            );
         }
     }
 

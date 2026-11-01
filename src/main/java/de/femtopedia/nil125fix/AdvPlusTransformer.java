@@ -17,4 +17,9 @@ public abstract class AdvPlusTransformer extends InsnBuilder implements PlusTran
         PlusTransformer.removePrintlns(this, ctx);
     }
 
+    @Override
+    public void removePrintlns(PatchContext ctx, boolean alsoStdErr) {
+        PlusTransformer.removePrintlns(this, ctx, alsoStdErr);
+    }
+
 }
