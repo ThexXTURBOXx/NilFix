@@ -16,7 +16,11 @@ import nilloader.api.lib.mini.PatchContext;
 public interface PlusTransformer {
 
     default String hooks() {
-        return getClass().getName().replace('.', '/') + "$Hooks";
+        return hooks("Hooks");
+    }
+
+    default String hooks(String subclass) {
+        return getClass().getName().replace('.', '/') + "$" + subclass;
     }
 
     void removePrintlns(PatchContext ctx);
