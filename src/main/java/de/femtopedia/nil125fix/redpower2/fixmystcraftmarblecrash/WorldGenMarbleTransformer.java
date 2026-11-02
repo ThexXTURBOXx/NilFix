@@ -14,8 +14,9 @@ public class WorldGenMarbleTransformer extends MiniPlusTransformer {
 
     @Override
     protected boolean modifyClassStructure(ClassNode clazz) {
+        String desc = remapMethodDesc("(IIIILnet/minecraft/src/World;)V");
         MethodNode addBlockSafe = new MethodNode(Opcodes.ASM5, Opcodes.ACC_PRIVATE,
-                "addBlockSafe", "(IIIILxd;)V", null, null);
+                "addBlockSafe", desc, null, null);
 
         LabelNode Lskip = new LabelNode();
         addBlockSafe.instructions = toInsnList(
