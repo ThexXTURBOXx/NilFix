@@ -18,7 +18,9 @@ import nilloader.api.NilModList;
 public class Nil125FixPremain implements Runnable {
 
     public static final String MOD_ID = "nil125fix";
-    public static final NilLogger log = NilLogger.get("Nil125Fix");
+    public static final String MOD_NAME = "Nil125Fix";
+
+    public static final NilLogger log = NilLogger.get(MOD_NAME);
 
     public static final Set<String> DISABLED_BY_DEFAULT = new HashSet<>(Arrays.asList(
             "fastleafdecay.decayleavesfast",
@@ -31,7 +33,7 @@ public class Nil125FixPremain implements Runnable {
     public void run() {
         Optional<NilMetadata> meta = NilModList.getById(MOD_ID);
         if (!meta.isPresent()) {
-            log.error("Nil125Fix cannot find itself! AAAAHHHH!");
+            log.error(MOD_NAME + " cannot find itself! AAAAHHHH!");
             return;
         }
 
@@ -55,7 +57,7 @@ public class Nil125FixPremain implements Runnable {
                 classes.put(clazz, clazz.getPackage().getName().substring(pkgLength));
             }
 
-            Configuration config = new Configuration("config/Nil125Fix.cfg", classes.values());
+            Configuration config = new Configuration("config/" + MOD_NAME + ".cfg", classes.values());
             config.saveIfChanged();
 
             for (Map.Entry<Class<?>, String> e : classes.entrySet()) {
