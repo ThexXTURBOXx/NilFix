@@ -7,5 +7,4 @@
 
 entrypoints {
     premain: "de.femtopedia.nil125fix.Nil125FixPremain";
-    hijack: "de.femtopedia.nil125fix.Nil125FixPremain";
 }
