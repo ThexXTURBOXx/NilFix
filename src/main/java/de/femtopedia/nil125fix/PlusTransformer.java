@@ -118,4 +118,10 @@ public interface PlusTransformer {
         private static MethodHandle getMinecraftInstance;
     }
 
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface Prioritised {
+        int priority() default 100;
+    }
+
 }
