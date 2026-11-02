@@ -1,4 +1,4 @@
-package de.femtopedia.nil125fix.fastleafdecay.decayleavesfast;
+package de.femtopedia.nil125fix.fastleafdecay;
 
 import de.femtopedia.nil125fix.MiniPlusTransformer;
 import java.util.Random;

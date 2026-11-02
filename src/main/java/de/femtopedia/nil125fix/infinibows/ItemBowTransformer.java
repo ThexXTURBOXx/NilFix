@@ -1,4 +1,4 @@
-package de.femtopedia.nil125fix.infibows.shootwithinfwithoutarrows;
+package de.femtopedia.nil125fix.infinibows;
 
 import de.femtopedia.nil125fix.MiniPlusTransformer;
 import nilloader.api.lib.asm.tree.LabelNode;
@@ -11,7 +11,7 @@ public class ItemBowTransformer extends MiniPlusTransformer {
     @Patch.Method.AffectsControlFlow
     @Patch.Method("onItemRightClick(Lnet/minecraft/src/ItemStack;Lnet/minecraft/src/World;" +
                   "Lnet/minecraft/src/EntityPlayer;)Lnet/minecraft/src/ItemStack;")
-    public void enableInfiBows(PatchContext ctx) {
+    public void enableInfiniBows(PatchContext ctx) {
         LabelNode Lprocess = new LabelNode();
 
         ctx.search(

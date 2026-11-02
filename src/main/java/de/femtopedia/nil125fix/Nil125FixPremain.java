@@ -25,8 +25,8 @@ public class Nil125FixPremain implements Runnable {
     public static final NilLogger log = NilLogger.get(MOD_NAME);
 
     public static final Set<String> DISABLED_BY_DEFAULT = new HashSet<>(Arrays.asList(
-            "fastleafdecay.decayleavesfast",
-            "infibows.shootwithinfwithoutarrows",
+            "fastleafdecay",
+            "infinibows",
             "keepmystats.usededicatedusername",
             "vanilla.fixinfiniteoceans"
     ));
