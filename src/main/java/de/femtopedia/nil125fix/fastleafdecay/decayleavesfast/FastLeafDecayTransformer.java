@@ -1,7 +1,6 @@
 package de.femtopedia.nil125fix.fastleafdecay.decayleavesfast;
 
 import de.femtopedia.nil125fix.MiniPlusTransformer;
-import de.femtopedia.nil125fix.PlusTransformer;
 import java.util.Random;
 import net.minecraft.src.World;
 import nilloader.api.lib.asm.Opcodes;
@@ -18,7 +17,7 @@ public class FastLeafDecayTransformer extends MiniPlusTransformer {
         MethodNode onNeighborBlockChange = new MethodNode(Opcodes.ASM5, Opcodes.ACC_PUBLIC,
                 "a", desc, null, null);
 
-        onNeighborBlockChange.instructions = PlusTransformer.toInsnList(
+        onNeighborBlockChange.instructions = toInsnList(
                 ALOAD(1),
                 ILOAD(2),
                 ILOAD(3),

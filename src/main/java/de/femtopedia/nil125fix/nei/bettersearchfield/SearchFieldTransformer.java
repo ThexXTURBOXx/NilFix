@@ -9,8 +9,6 @@ import nilloader.api.lib.asm.tree.ClassNode;
 import nilloader.api.lib.asm.tree.MethodNode;
 import nilloader.api.lib.mini.annotation.Patch;
 
-import static de.femtopedia.nil125fix.PlusTransformer.toInsnList;
-
 @Patch.Class("codechicken.nei.SearchField")
 public class SearchFieldTransformer extends MiniPlusTransformer {
 

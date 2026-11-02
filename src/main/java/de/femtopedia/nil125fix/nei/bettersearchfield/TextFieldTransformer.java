@@ -5,6 +5,7 @@ import codechicken.nei.NEIController;
 import codechicken.nei.TextField;
 import de.femtopedia.nil125fix.MiniPlusTransformer;
 import java.lang.reflect.Field;
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiTextField;
 import nilloader.api.lib.asm.Opcodes;
 import nilloader.api.lib.asm.Type;
@@ -18,7 +19,6 @@ import nilloader.api.lib.mini.annotation.Patch;
 import org.lwjgl.input.Keyboard;
 
 import static de.femtopedia.nil125fix.PlusTransformer.getMinecraftInstance;
-import static de.femtopedia.nil125fix.PlusTransformer.toInsnList;
 
 @Patch.Class("codechicken.nei.TextField")
 public class TextFieldTransformer extends MiniPlusTransformer {
@@ -224,7 +224,7 @@ public class TextFieldTransformer extends MiniPlusTransformer {
         private static Field height;
 
         public static GuiTextField initInternalTextField() {
-            GuiTextField field = new GuiTextField(getMinecraftInstance().fontRenderer, 0, 0, 0, 0);
+            GuiTextField field = new GuiTextField(((Minecraft) getMinecraftInstance()).fontRenderer, 0, 0, 0, 0);
             field.setMaxStringLength(256);
             field.field_50042_o = 0;
             field.func_50032_g(0);

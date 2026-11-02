@@ -2,6 +2,7 @@ package de.femtopedia.nil125fix.keepmystats.createplaceholders;
 
 import de.femtopedia.nil125fix.MiniPlusTransformer;
 import java.util.Map;
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.AchievementMap;
 import net.minecraft.src.StatBase;
 import net.minecraft.src.StatList;
@@ -50,8 +51,8 @@ public class StatBaseTransformer extends MiniPlusTransformer {
                 if (idx < 0) return false;
 
                 // Everything has worked and we can apply our "hack"
-                replaceInMap(getMinecraftInstance().statFileWriter.field_25101_b, placeholder, stat);
-                replaceInMap(getMinecraftInstance().statFileWriter.field_25102_a, placeholder, stat);
+                replaceInMap(((Minecraft) getMinecraftInstance()).statFileWriter.field_25101_b, placeholder, stat);
+                replaceInMap(((Minecraft) getMinecraftInstance()).statFileWriter.field_25102_a, placeholder, stat);
                 StatList.allStats.set(idx, stat);
                 StatList.oneShotStats.put(stat.statId, stat);
                 stat.statGuid = AchievementMap.getGuid(stat.statId);

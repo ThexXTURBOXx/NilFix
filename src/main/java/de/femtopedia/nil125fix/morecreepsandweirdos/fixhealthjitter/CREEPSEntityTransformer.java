@@ -7,8 +7,6 @@ import nilloader.api.lib.asm.tree.ClassNode;
 import nilloader.api.lib.asm.tree.FieldInsnNode;
 import nilloader.api.lib.asm.tree.FieldNode;
 
-import static de.femtopedia.nil125fix.PlusTransformer.toInsnList;
-
 public class CREEPSEntityTransformer extends AdvPlusTransformer {
 
     @Override

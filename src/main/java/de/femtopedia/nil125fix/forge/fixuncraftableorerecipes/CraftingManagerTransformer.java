@@ -36,7 +36,7 @@ public class CraftingManagerTransformer extends MiniPlusTransformer {
             // We only tidy up this list when we first entered a world.
             // I don't want to let the game run this check everytime and forever as it may get quite heavy.
             if (wasAlreadyInWorld) return;
-            Minecraft mc = getMinecraftInstance();
+            Minecraft mc = (Minecraft) getMinecraftInstance();
             if (mc != null && mc.theWorld != null) wasAlreadyInWorld = true;
             else return;
 

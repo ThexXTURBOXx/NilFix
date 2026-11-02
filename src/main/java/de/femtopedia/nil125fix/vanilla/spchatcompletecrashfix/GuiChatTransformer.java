@@ -46,7 +46,7 @@ public class GuiChatTransformer extends MiniPlusTransformer {
     public static class Hooks {
 
         public static List<GuiPlayerInfo> getSPNames() {
-            Minecraft mc = getMinecraftInstance();
+            Minecraft mc = (Minecraft) getMinecraftInstance();
             if (mc == null || mc.thePlayer == null)
                 return Collections.emptyList();
             return Collections.singletonList(new GuiPlayerInfo(mc.thePlayer.username));
