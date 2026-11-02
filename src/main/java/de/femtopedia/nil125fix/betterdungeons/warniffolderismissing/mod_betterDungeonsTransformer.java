@@ -42,8 +42,8 @@ public class mod_betterDungeonsTransformer extends MiniPlusTransformer {
             File buildingDir = new File(configDir, "Building");
             File langDir = new File(configDir, "Lang");
             if (!configDir.exists() || !configDir.isDirectory() ||
-                    !buildingDir.exists() || !buildingDir.isDirectory() ||
-                    !langDir.exists() || !langDir.isDirectory()) {
+                !buildingDir.exists() || !buildingDir.isDirectory() ||
+                !langDir.exists() || !langDir.isDirectory()) {
                 Nil125FixPremain.log.error("You have installed Better Dungeons, but have not");
                 Nil125FixPremain.log.error("extracted the Chocolate folder correctly!");
                 Nil125FixPremain.log.error("You will experience various bugs and crashes!");

@@ -54,7 +54,7 @@ public class Nil125FixPremain implements Runnable {
 
                 Class<?> clazz = Class.forName(name);
                 if (!ClassTransformer.class.isAssignableFrom(clazz) ||
-                        Modifier.isAbstract(clazz.getModifiers())) continue;
+                    Modifier.isAbstract(clazz.getModifiers())) continue;
 
                 String cfgKey = clazz.getPackage().getName().substring(pkgLength);
                 int priority = clazz.isAnnotationPresent(Prioritised.class)
