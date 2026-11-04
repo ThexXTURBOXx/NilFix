@@ -31,7 +31,8 @@ public class Nil125FixPremain implements Runnable {
             "fastleafdecay",
             "infinibows",
             "keepmystats.usededicatedusername",
-            "vanilla.fixinfiniteoceans"
+            "vanilla.fixinfiniteoceans",
+            "vanilla.mergeitems"
     ));
 
     @Override
