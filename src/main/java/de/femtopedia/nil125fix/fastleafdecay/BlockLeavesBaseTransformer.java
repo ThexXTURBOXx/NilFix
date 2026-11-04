@@ -9,7 +9,7 @@ import nilloader.api.lib.asm.tree.MethodNode;
 import nilloader.api.lib.mini.annotation.Patch;
 
 @Patch.Class("net.minecraft.src.BlockLeavesBase")
-public class FastLeafDecayTransformer extends MiniPlusTransformer {
+public class BlockLeavesBaseTransformer extends MiniPlusTransformer {
 
     @Override
     protected boolean modifyClassStructure(ClassNode clazz) {
@@ -35,13 +35,31 @@ public class FastLeafDecayTransformer extends MiniPlusTransformer {
 
     public static class Hooks {
 
-        public static Random rng = new Random();
-        private static final int baseDecayTime = 4;
-        private static final int maxDecayTime = 11;
-        private static final int randomizationTime = maxDecayTime - baseDecayTime;
+        private static Random rng = new Random();
+        private static int baseDecayTime = 4;
+        private static int maxDecayTime = 11;
+        private static int randomizationTime = maxDecayTime - baseDecayTime;
 
         public static void handleLeafDecay(World worldObj, int posX, int posY, int posZ, int blockId) {
             worldObj.scheduleBlockUpdate(posX, posY, posZ, blockId, baseDecayTime + rng.nextInt(randomizationTime));
+        }
+
+        public static void setRandom(Random newRandom) {
+            rng = newRandom;
+        }
+
+        public static void setBaseDecayTime(int newBaseDecayTime) {
+            if (newBaseDecayTime >= maxDecayTime)
+                throw new IllegalArgumentException("Base decay time cannot be greater than or equal to max decay time");
+            baseDecayTime = newBaseDecayTime;
+            randomizationTime = maxDecayTime - baseDecayTime;
+        }
+
+        public static void setMaxDecayTime(int newMaxDecayTime) {
+            if (newMaxDecayTime <= baseDecayTime)
+                throw new IllegalArgumentException("Max decay time cannot be less than or equal to base decay time");
+            maxDecayTime = newMaxDecayTime;
+            randomizationTime = maxDecayTime - baseDecayTime;
         }
 
     }
