@@ -11,9 +11,7 @@ public class GuiTextFieldTransformer extends MiniPlusTransformer {
     @Override
     protected boolean modifyClassStructure(ClassNode clazz) {
         // Make fields non-final
-        clazz.fields.forEach(field -> {
-            field.access &= ~Modifier.FINAL;
-        });
+        clazz.fields.forEach(field -> field.access &= ~Modifier.FINAL);
         return true; // don't know if absolutely necessary, let's just do it...
     }
 

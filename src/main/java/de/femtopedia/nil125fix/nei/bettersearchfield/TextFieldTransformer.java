@@ -4,6 +4,7 @@ import codechicken.nei.LayoutManager;
 import codechicken.nei.NEIController;
 import codechicken.nei.TextField;
 import de.femtopedia.nil125fix.MiniPlusTransformer;
+import de.femtopedia.nil125fix.Nil125FixPremain;
 import java.lang.reflect.Field;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiTextField;
@@ -13,6 +14,7 @@ import nilloader.api.lib.asm.tree.ClassNode;
 import nilloader.api.lib.asm.tree.FieldNode;
 import nilloader.api.lib.asm.tree.LabelNode;
 import nilloader.api.lib.asm.tree.MethodNode;
+import nilloader.api.lib.mini.MiniUtils;
 import nilloader.api.lib.mini.PatchContext;
 import nilloader.api.lib.mini.PatchContext.SearchResult;
 import nilloader.api.lib.mini.annotation.Patch;
@@ -234,19 +236,23 @@ public class TextFieldTransformer extends MiniPlusTransformer {
         public static void setDimensionsAndColor(TextField thiz, GuiTextField field) {
             try {
                 if (xPos == null) {
-                    xPos = GuiTextField.class.getDeclaredField("b");
+                    xPos = GuiTextField.class.getDeclaredField(MiniUtils.remapField(Nil125FixPremain.mappings,
+                            "net/minecraft/src/GuiTextField", "xPos", "I"));
                     xPos.setAccessible(true);
                 }
                 if (yPos == null) {
-                    yPos = GuiTextField.class.getDeclaredField("c");
+                    yPos = GuiTextField.class.getDeclaredField(MiniUtils.remapField(Nil125FixPremain.mappings,
+                            "net/minecraft/src/GuiTextField", "yPos", "I"));
                     yPos.setAccessible(true);
                 }
                 if (width == null) {
-                    width = GuiTextField.class.getDeclaredField("d");
+                    width = GuiTextField.class.getDeclaredField(MiniUtils.remapField(Nil125FixPremain.mappings,
+                            "net/minecraft/src/GuiTextField", "width", "I"));
                     width.setAccessible(true);
                 }
                 if (height == null) {
-                    height = GuiTextField.class.getDeclaredField("e");
+                    height = GuiTextField.class.getDeclaredField(MiniUtils.remapField(Nil125FixPremain.mappings,
+                            "net/minecraft/src/GuiTextField", "height", "I"));
                     height.setAccessible(true);
                 }
 
