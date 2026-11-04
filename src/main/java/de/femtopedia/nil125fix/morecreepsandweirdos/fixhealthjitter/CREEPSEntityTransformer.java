@@ -1,6 +1,7 @@
 package de.femtopedia.nil125fix.morecreepsandweirdos.fixhealthjitter;
 
 import de.femtopedia.nil125fix.AdvPlusTransformer;
+import java.util.Objects;
 import nilloader.api.lib.asm.Opcodes;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.ClassNode;
@@ -18,18 +19,18 @@ public class CREEPSEntityTransformer extends AdvPlusTransformer {
     public boolean transform(ClassLoader classLoader, ClassNode classNode) {
         if (!canTransform(classLoader, classNode.name)) return false;
 
-        classNode.fields.add(new FieldNode(Opcodes.ASM5, Opcodes.ACC_PRIVATE,
-                "nilfixMaxHealth", "I", null, 0));
+        String healthField = remapField("net/minecraft/src/EntityLiving", "health", "I");
+        String getMaxHealthMethod = remapMethod("net/minecraft/src/EntityLiving", "getMaxHealth", "()I");
 
-        classNode.methods.stream()
+        boolean needsFix = classNode.methods.stream()
                 .filter(m -> m.name.equals("<init>"))
-                .forEach(c -> {
+                .map(c -> {
+                    boolean found = false;
                     for (AbstractInsnNode i : c.instructions) {
                         if (!(i instanceof FieldInsnNode)) continue;
                         FieldInsnNode fi = (FieldInsnNode) i;
                         if (fi.getOpcode() != Opcodes.PUTFIELD) continue;
-                        if (!fi.name.equals(remapField("net/minecraft/src/EntityLiving", "health", "I")))
-                            continue;
+                        if (!fi.name.equals(healthField)) continue;
 
                         c.instructions.insert(fi, toInsnList(
                                 ALOAD(0),
@@ -37,12 +38,19 @@ public class CREEPSEntityTransformer extends AdvPlusTransformer {
                                 GETFIELD(fi.owner, fi.name, fi.desc),
                                 PUTFIELD(classNode.name, "nilfixMaxHealth", "I")
                         ));
+                        found = true;
                     }
-                });
+                    return found ? c : null;
+                })
+                .anyMatch(Objects::nonNull);
+
+        if (!needsFix) return false;
+
+        classNode.fields.add(new FieldNode(Opcodes.ASM5, Opcodes.ACC_PRIVATE,
+                "nilfixMaxHealth", "I", null, 0));
 
         classNode.methods.stream()
-                .filter(m ->
-                        m.name.equals(remapMethod("net/minecraft/src/EntityLiving", "getMaxHealth", "()I")))
+                .filter(m -> m.name.equals(getMaxHealthMethod))
                 .forEach(m -> m.instructions.insert(toInsnList(
                         ALOAD(0),
                         GETFIELD(classNode.name, "nilfixMaxHealth", "I"),
