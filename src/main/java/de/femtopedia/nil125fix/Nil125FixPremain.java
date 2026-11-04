@@ -12,10 +12,12 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import nilloader.NilAgent;
 import nilloader.api.ClassTransformer;
 import nilloader.api.NilLogger;
 import nilloader.api.NilMetadata;
 import nilloader.api.NilModList;
+import nilloader.impl.lib.lorenz.MappingSet;
 
 public class Nil125FixPremain implements Runnable {
 
@@ -23,6 +25,7 @@ public class Nil125FixPremain implements Runnable {
     public static final String MOD_NAME = "Nil125Fix";
 
     public static final NilLogger log = NilLogger.get(MOD_NAME);
+    public static final Optional<MappingSet> mappings = Optional.ofNullable(NilAgent.getActiveMappings(MOD_ID));
 
     public static final Set<String> DISABLED_BY_DEFAULT = new HashSet<>(Arrays.asList(
             "fastleafdecay",
