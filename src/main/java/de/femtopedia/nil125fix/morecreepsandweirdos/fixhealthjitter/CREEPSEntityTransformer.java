@@ -1,7 +1,6 @@
 package de.femtopedia.nil125fix.morecreepsandweirdos.fixhealthjitter;
 
 import de.femtopedia.nil125fix.AdvPlusTransformer;
-import java.util.Objects;
 import nilloader.api.lib.asm.Opcodes;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.ClassNode;
@@ -12,7 +11,7 @@ public class CREEPSEntityTransformer extends AdvPlusTransformer {
 
     @Override
     public boolean canTransform(ClassLoader loader, String className) {
-        return className.startsWith("CREEPS");
+        return className.startsWith("CREEPSEntity");
     }
 
     @Override
@@ -24,7 +23,7 @@ public class CREEPSEntityTransformer extends AdvPlusTransformer {
 
         boolean needsFix = classNode.methods.stream()
                 .filter(m -> m.name.equals("<init>"))
-                .map(c -> {
+                .anyMatch(c -> {
                     boolean found = false;
                     for (AbstractInsnNode i : c.instructions) {
                         if (!(i instanceof FieldInsnNode)) continue;
@@ -40,9 +39,8 @@ public class CREEPSEntityTransformer extends AdvPlusTransformer {
                         ));
                         found = true;
                     }
-                    return found ? c : null;
-                })
-                .anyMatch(Objects::nonNull);
+                    return found;
+                });
 
         if (!needsFix) return false;
 
