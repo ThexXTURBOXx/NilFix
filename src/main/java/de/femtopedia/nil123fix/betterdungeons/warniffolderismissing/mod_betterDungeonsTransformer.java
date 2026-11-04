@@ -1,0 +1,64 @@
+package de.femtopedia.nil123fix.betterdungeons.warniffolderismissing;
+
+
+import de.femtopedia.nil123fix.MiniPlusTransformer;
+import de.femtopedia.nil123fix.Nil123FixPremain;
+import java.io.File;
+import net.minecraft.client.Minecraft;
+import nilloader.api.lib.mini.PatchContext;
+import nilloader.api.lib.mini.annotation.Patch;
+
+import static de.femtopedia.nil123fix.PlusTransformer.getMinecraftInstance;
+
+@Patch.Class("mod_betterDungeons")
+public class mod_betterDungeonsTransformer extends MiniPlusTransformer {
+
+    @Patch.Method("loadConfig()V")
+    public void warnAboutMissingChocolateFolderUponStart(PatchContext ctx) {
+        ctx.jumpToStart();
+
+        ctx.add(
+                INVOKESTATIC(hooks(), "warnAboutMissingChocolateFolder", "()V")
+        );
+    }
+
+    @Patch.Method("generateSurface(Lnet/minecraft/src/World;Ljava/util/Random;II)V")
+    public void warnAboutMissingChocolateFolderPeriodically(PatchContext ctx) {
+        ctx.jumpToStart();
+
+        ctx.add(
+                INVOKESTATIC(hooks(), "warnAboutMissingChocolateFolder", "()V")
+        );
+    }
+
+    public static class Hooks {
+
+        private static int counter = 0;
+
+        public static void warnAboutMissingChocolateFolder() {
+            if (counter++ % 20 != 0) return;
+
+            File configDir = new File(Minecraft.getMinecraftDir(), "Chocolate");
+            File buildingDir = new File(configDir, "Building");
+            File langDir = new File(configDir, "Lang");
+            if (!configDir.exists() || !configDir.isDirectory() ||
+                !buildingDir.exists() || !buildingDir.isDirectory() ||
+                !langDir.exists() || !langDir.isDirectory()) {
+                Nil123FixPremain.log.error("You have installed Better Dungeons, but have not");
+                Nil123FixPremain.log.error("extracted the Chocolate folder correctly!");
+                Nil123FixPremain.log.error("You will experience various bugs and crashes!");
+                Nil123FixPremain.log.error("Please install the mod correctly, i.e., extract");
+                Nil123FixPremain.log.error("the \"Chocolate\" folder from the mod zip into");
+                Nil123FixPremain.log.error("your Minecraft root directory, which should be:");
+                Nil123FixPremain.log.error(Minecraft.getMinecraftDir().toString());
+            }
+
+            Minecraft mc = (Minecraft) getMinecraftInstance();
+            if (mc != null && mc.thePlayer != null) {
+                mc.thePlayer.addChatMessage("[" + Nil123FixPremain.MOD_NAME + "] Check the console!");
+            }
+        }
+
+    }
+
+}
