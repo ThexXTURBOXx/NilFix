@@ -55,7 +55,7 @@ public class mod_betterDungeonsTransformer extends MiniPlusTransformer {
 
             Minecraft mc = (Minecraft) getMinecraftInstance();
             if (mc != null && mc.thePlayer != null) {
-                mc.thePlayer.addChatMessage("[Nil125Fix] Check the console!");
+                mc.thePlayer.addChatMessage("[" + Nil125FixPremain.MOD_NAME + "] Check the console!");
             }
         }
 
