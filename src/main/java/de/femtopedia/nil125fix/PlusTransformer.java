@@ -4,11 +4,9 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.src.ModLoader;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.InsnList;
 import nilloader.api.lib.asm.tree.LabelNode;
@@ -42,6 +40,9 @@ public interface PlusTransformer {
         return Utils.getMinecraftInstance();
     }
 
+    /**
+     * Utility class for static method access.
+     */
     final class Utils {
 
         static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
@@ -99,23 +100,22 @@ public interface PlusTransformer {
         }
 
         static Object getMinecraftInstance() {
-            try {
-                if (Container.getMinecraftInstance == null) {
-                    Class<?> ModLoader = Class.forName("ModLoader");
-                    Method m = ModLoader.getMethod("getMinecraftInstance");
-                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-                    Container.getMinecraftInstance = lookup.unreflect(m);
-                }
-                return Container.getMinecraftInstance.invoke();
-            } catch (Throwable t) {
-                throw new RuntimeException(t);
-            }
+            return DeferredUtils.getMinecraftInstance();
         }
 
     }
 
-    final class Container {
-        private static MethodHandle getMinecraftInstance;
+    /**
+     * Class with utility methods that should be loaded a bit later
+     * such that the remapper can kick in.
+     * DO NOT CALL THESE FUNCTIONS BEFORE premain IS FINISHED!
+     */
+    final class DeferredUtils {
+
+        static Object getMinecraftInstance() {
+            return ModLoader.getMinecraftInstance();
+        }
+
     }
 
     @Target(ElementType.TYPE)

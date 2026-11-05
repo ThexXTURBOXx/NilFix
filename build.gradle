@@ -1,5 +1,5 @@
 plugins {
-	id 'com.unascribed.nilgradle' version '1.4.10'
+	id 'com.unascribed.nilgradle' version '1.5.1'
 }
 
 java {
@@ -63,5 +63,7 @@ dependencies {
 }
 
 mappings {
+	side 'client'
 	work nil.mcpArchive('1.2.5', '62')
+	mapClass('ModLoader', 'net/minecraft/src/ModLoader')
 }
