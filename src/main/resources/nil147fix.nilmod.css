@@ -1,0 +1,10 @@
+@nilmod {
+    name: "Nil147Fix";
+    description: "Fixes a few things in 1.4.7.";
+    authors: "ThexXTURBOXx";
+    version: "${version}";
+}
+
+entrypoints {
+    premain: "de.femtopedia.nil147fix.Nil147FixPremain";
+}

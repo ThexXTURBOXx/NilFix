@@ -15,7 +15,7 @@ version = project.findProperty('version')
 version = version == null || version == 'unspecified' ? '1.0' : version
 
 base {
-	archivesName = 'Nil125Fix'
+	archivesName = 'Nil147Fix'
 }
 
 repositories {
@@ -44,7 +44,7 @@ repositories {
 }
 
 nil {
-	id "nil125fix"
+	id "nil147fix"
 	// Set this to false for a smaller JAR that can't be run as a standalone Java agent
 	standalone false
 }
@@ -56,14 +56,12 @@ dependencies {
 		transitive = false
 	}
 
-	game nil.minecraft('1.2.5', 'client')
+	game nil.minecraft('1.4.7', 'client')
 
-	jarmod 'net.minecraftforge:forge:1.2.5-3.4.9.171:client@zip'
-	mod 'libs:NotEnoughItems-Client 1.3.0.1'
+	jarmod 'net.minecraftforge:forge:1.4.7-6.6.2.534:universal@zip'
+	mod 'libs:NotEnoughItems 1.4.7.4'
 }
 
 mappings {
-	side 'client'
-	work nil.mcpArchive('1.2.5', '62')
-	mapClass('ModLoader', 'net/minecraft/src/ModLoader')
+	work nil.mcpArchive('1.4.7', '726a')
 }
