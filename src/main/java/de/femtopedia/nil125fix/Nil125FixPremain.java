@@ -43,6 +43,8 @@ public class Nil125FixPremain implements Runnable {
             return;
         }
 
+        PlusTransformer.Utils.printDebugInfo();
+
         int pkgLength = getClass().getPackage().getName().length() + 1;
         try (ZipFile zip = new ZipFile(meta.get().source)) {
             Enumeration<? extends ZipEntry> entries = zip.entries();

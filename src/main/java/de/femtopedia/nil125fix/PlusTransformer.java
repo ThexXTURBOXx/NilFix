@@ -4,8 +4,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import net.minecraft.src.ModLoader;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.InsnList;
@@ -44,6 +46,18 @@ public interface PlusTransformer {
      * Utility class for static method access.
      */
     final class Utils {
+
+        static void printDebugInfo() {
+            Nil125FixPremain.log.debug("=================== JAVA DEBUG INFO ===================");
+            System.getProperties().entrySet().stream()
+                    .map(e -> new AbstractMap.SimpleEntry<>(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
+                    .filter(e -> e.getKey().startsWith("java.") || e.getKey().startsWith("os."))
+                    .filter(e -> !e.getKey().contains("path") && !e.getKey().contains("dir") &&
+                                 !e.getKey().contains("home"))
+                    .sorted(Map.Entry.comparingByKey())
+                    .forEach(e -> Nil125FixPremain.log.debug(e.getKey() + " = " + e.getValue()));
+            Nil125FixPremain.log.debug("=================== JAVA DEBUG INFO ===================");
+        }
 
         static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
             removePrintlns(builder, ctx, false);
