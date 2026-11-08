@@ -68,7 +68,7 @@ jobs:
           changelog: |
             Full changelog can be found on [GitHub](https://github.com/ThexXTURBOXx/NilFix/releases)
           loaders: nilloader
-          environment: client
+          environment: client* | server*
           game-versions: |
             1.4.4
             1.4.5
