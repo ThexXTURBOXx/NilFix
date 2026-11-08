@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.InsnList;
 import nilloader.api.lib.asm.tree.LabelNode;
@@ -38,8 +39,16 @@ public interface PlusTransformer {
         Utils.removePrintlns((InsnBuilder) this, ctx, alsoStdErr);
     }
 
+    static boolean isDedicatedServer() {
+        return Utils.isDedicatedServer();
+    }
+
     static Object getMinecraftInstance() {
         return Utils.getMinecraftInstance();
+    }
+
+    static Object getMinecraftServerInstance() {
+        return Utils.getMinecraftServerInstance();
     }
 
     /**
@@ -113,8 +122,16 @@ public interface PlusTransformer {
             return li;
         }
 
+        static boolean isDedicatedServer() {
+            return DeferredUtils.isDedicatedServer();
+        }
+
         static Object getMinecraftInstance() {
             return DeferredUtils.getMinecraftInstance();
+        }
+
+        static Object getMinecraftServerInstance() {
+            return DeferredUtils.getMinecraftServerInstance();
         }
 
     }
@@ -126,8 +143,22 @@ public interface PlusTransformer {
      */
     final class DeferredUtils {
 
+        static boolean isDedicatedServer() {
+            try {
+                // try to find a SideOnly(SERVER) method - if that fails, we are not on a dedicated server
+                MinecraftServer.class.getMethod("main", String[].class);
+                return true;
+            } catch (Throwable ignored) {
+            }
+            return false;
+        }
+
         static Object getMinecraftInstance() {
             return Minecraft.getMinecraft();
+        }
+
+        static Object getMinecraftServerInstance() {
+            return MinecraftServer.getServer();
         }
 
     }

@@ -5,14 +5,14 @@ import de.femtopedia.nil147fix.Nil147FixPremain;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.src.IRecipe;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import nilloader.api.lib.mini.PatchContext;
 import nilloader.api.lib.mini.annotation.Patch;
 
-import static de.femtopedia.nil147fix.PlusTransformer.getMinecraftInstance;
+import static de.femtopedia.nil147fix.PlusTransformer.getMinecraftServerInstance;
 
 @Patch.Class("net.minecraft.src.CraftingManager")
 public class CraftingManagerTransformer extends MiniPlusTransformer {
@@ -36,8 +36,11 @@ public class CraftingManagerTransformer extends MiniPlusTransformer {
             // We only tidy up this list when we first entered a world.
             // I don't want to let the game run this check everytime and forever as it may get quite heavy.
             if (wasAlreadyInWorld) return;
-            Minecraft mc = (Minecraft) getMinecraftInstance();
-            if (mc != null && mc.theWorld != null) wasAlreadyInWorld = true;
+
+            MinecraftServer server = (MinecraftServer) getMinecraftServerInstance();
+            if (server != null && server.worldServers != null &&
+                server.worldServers.length > 0 && server.worldServers[0] != null)
+                wasAlreadyInWorld = true;
             else return;
 
             int tidied = 0;

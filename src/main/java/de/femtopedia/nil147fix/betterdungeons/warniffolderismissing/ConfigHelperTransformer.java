@@ -1,5 +1,6 @@
 package de.femtopedia.nil147fix.betterdungeons.warniffolderismissing;
 
+import cpw.mods.fml.common.Loader;
 import de.femtopedia.nil147fix.MiniPlusTransformer;
 import de.femtopedia.nil147fix.Nil147FixPremain;
 import java.io.File;
@@ -8,6 +9,7 @@ import nilloader.api.lib.mini.PatchContext;
 import nilloader.api.lib.mini.annotation.Patch;
 
 import static de.femtopedia.nil147fix.PlusTransformer.getMinecraftInstance;
+import static de.femtopedia.nil147fix.PlusTransformer.isDedicatedServer;
 
 @Patch.Class("chocolate.mods.BD.ConfigHelper")
 public class ConfigHelperTransformer extends MiniPlusTransformer {
@@ -24,7 +26,7 @@ public class ConfigHelperTransformer extends MiniPlusTransformer {
     public static class Hooks {
 
         public static void warnAboutMissingChocolateFolder() {
-            File configDir = new File(Minecraft.getMinecraftDir(), "Chocolate");
+            File configDir = new File(Loader.instance.canonicalMinecraftDir, "Chocolate");
             File buildingDir = new File(configDir, "Building");
             File chestConfigDir = new File(configDir, "ChestConfig");
             File dungeonConfigDir = new File(configDir, "DungeonConfig");
@@ -41,9 +43,11 @@ public class ConfigHelperTransformer extends MiniPlusTransformer {
                 Nil147FixPremain.log.error(Minecraft.getMinecraftDir().toString());
             }
 
-            Minecraft mc = (Minecraft) getMinecraftInstance();
-            if (mc != null && mc.thePlayer != null) {
-                mc.thePlayer.addChatMessage("[" + Nil147FixPremain.MOD_NAME + "] Check the console!");
+            if (!isDedicatedServer()) {
+                Minecraft mc = (Minecraft) getMinecraftInstance();
+                if (mc != null && mc.thePlayer != null) {
+                    mc.thePlayer.addChatMessage("[" + Nil147FixPremain.MOD_NAME + "] Check the console!");
+                }
             }
         }
 
