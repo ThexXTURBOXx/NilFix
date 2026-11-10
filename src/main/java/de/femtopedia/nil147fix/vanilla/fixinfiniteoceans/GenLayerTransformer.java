@@ -10,7 +10,7 @@ import nilloader.api.lib.mini.annotation.Patch;
 @Patch.Class("net.minecraft.src.GenLayer")
 public class GenLayerTransformer extends MiniPlusTransformer {
 
-    @Patch.Method("func_48425_a(JLnet/minecraft/src/WorldType;)[Lnet/minecraft/src/GenLayer;")
+    @Patch.Method("initializeAllBiomeGenerators(JLnet/minecraft/src/WorldType;)[Lnet/minecraft/src/GenLayer;")
     public void removeTooMuchOcean(PatchContext ctx) {
         ctx.search(
                 LDC(2L)
