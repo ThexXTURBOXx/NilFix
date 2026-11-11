@@ -14,6 +14,7 @@ These patches are enabled by default, but can still be turned off in the config,
 - [General] Remove/skip broken update checkers
 - [General] Remove/skip debug logs from the console
 - [Vanilla] Fix "The End?" achievement not triggering
+- [Vanilla] Harden help command against improperly implemented commands
 - [Vanilla] Fix many rendering bugs on some Intel graphics driver versions (credits to [TheMasterCaver](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1294926-themastercavers-world?comment=294))
 - [Vanilla] Apply Lights Out and Antifreeze patches to fix lighting bugs (credits to [last_username](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1282658-1-2-5-lights-out-antifreeze-two-mods-to-fix))
 - [Vanilla] Fix statistics/achievements load and reset bugs (credits to [Naruto1310](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1282170-1-5-keepmystats))
