@@ -56,7 +56,7 @@ public interface PlusTransformer {
      */
     final class Utils {
 
-        static void printDebugInfo() {
+        public static void printDebugInfo() {
             Nil147FixPremain.log.debug("=================== JAVA DEBUG INFO ===================");
             System.getProperties().entrySet().stream()
                     .map(e -> new AbstractMap.SimpleEntry<>(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
@@ -68,11 +68,11 @@ public interface PlusTransformer {
             Nil147FixPremain.log.debug("=================== JAVA DEBUG INFO ===================");
         }
 
-        static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
+        public static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
             removePrintlns(builder, ctx, false);
         }
 
-        static void removePrintlns(InsnBuilder builder, PatchContext ctx, boolean alsoStdErr) {
+        public static void removePrintlns(InsnBuilder builder, PatchContext ctx, boolean alsoStdErr) {
             List<String> streams = new ArrayList<>();
             streams.add("out");
             if (alsoStdErr) {
@@ -116,21 +116,21 @@ public interface PlusTransformer {
             }
         }
 
-        static InsnList toInsnList(AbstractInsnNode... insns) {
+        public static InsnList toInsnList(AbstractInsnNode... insns) {
             InsnList li = new InsnList();
             for (AbstractInsnNode ain : insns) li.add(ain);
             return li;
         }
 
-        static boolean isDedicatedServer() {
+        public static boolean isDedicatedServer() {
             return DeferredUtils.isDedicatedServer();
         }
 
-        static Object getMinecraftInstance() {
+        public static Object getMinecraftInstance() {
             return DeferredUtils.getMinecraftInstance();
         }
 
-        static Object getMinecraftServerInstance() {
+        public static Object getMinecraftServerInstance() {
             return DeferredUtils.getMinecraftServerInstance();
         }
 
@@ -143,7 +143,7 @@ public interface PlusTransformer {
      */
     final class DeferredUtils {
 
-        static boolean isDedicatedServer() {
+        private static boolean isDedicatedServer() {
             try {
                 // try to find a SideOnly(SERVER) method - if that fails, we are not on a dedicated server
                 MinecraftServer.class.getMethod("main", String[].class);
@@ -153,11 +153,11 @@ public interface PlusTransformer {
             return false;
         }
 
-        static Object getMinecraftInstance() {
+        private static Object getMinecraftInstance() {
             return Minecraft.getMinecraft();
         }
 
-        static Object getMinecraftServerInstance() {
+        private static Object getMinecraftServerInstance() {
             return MinecraftServer.getServer();
         }
 
