@@ -11,10 +11,12 @@ Not every Minecraft version needs the same fixes. Some fixes may not be availabl
 ### Enabled by default
 
 These patches are enabled by default, but can still be turned off in the config, if wanted:
+- [General] Add "Ding" when game is loaded
 - [General] Remove/skip broken update checkers
 - [General] Remove/skip debug logs from the console
 - [Vanilla] Fix "The End?" achievement not triggering
 - [Vanilla] Harden help command against improperly implemented commands
+- [Vanilla] Fix silent error in the background when server list is empty
 - [Vanilla] Fix many rendering bugs on some Intel graphics driver versions (credits to [TheMasterCaver](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1294926-themastercavers-world?comment=294))
 - [Vanilla] Apply Lights Out and Antifreeze patches to fix lighting bugs (credits to [last_username](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1282658-1-2-5-lights-out-antifreeze-two-mods-to-fix))
 - [Vanilla] Fix statistics/achievements load and reset bugs (credits to [Naruto1310](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1282170-1-5-keepmystats))
@@ -51,6 +53,9 @@ You can enable these patches in the config:
 
 **Q**: What the hell is a Nilmod? How do I install this? AAAAAAAAAAA??!?!?!!  
 **A**: First of all: you can install NilLoader alongside any other loader (including Forge, ModLoader etc.)! A Nilmod is a mod that is loaded by [NilLoader](https://git.sleeping.town/exa/NilLoader). You should [install NilLoader](https://git.sleeping.town/exa/NilLoader#using-nilloader) first and then put NilFix in either the dedicated `nilmods` folder (recommended!) or in the usual `mods` folder of your Minecraft instance.
+
+**Q**: Which version of NilLoader do I need for this?  
+**A**: Every version of NilLoader is compatible with any version of Minecraft! For NilFix, at least version 1.4.1 is required.
 
 **Q**: I have found a bug in Vanilla or some mod. Can you please fix it?  
 **A**: Well, I will try my best! Please report it over at the [mod's issues](https://github.com/ThexXTURBOXx/NilFix/issues).
