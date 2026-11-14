@@ -8,7 +8,7 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.src.ModLoader;
+import net.minecraft.client.Minecraft;
 import nilloader.api.lib.asm.tree.AbstractInsnNode;
 import nilloader.api.lib.asm.tree.InsnList;
 import nilloader.api.lib.asm.tree.LabelNode;
@@ -47,7 +47,7 @@ public interface PlusTransformer {
      */
     final class Utils {
 
-        static void printDebugInfo() {
+        public static void printDebugInfo() {
             Nil125FixPremain.log.debug("=================== JAVA DEBUG INFO ===================");
             System.getProperties().entrySet().stream()
                     .map(e -> new AbstractMap.SimpleEntry<>(String.valueOf(e.getKey()), String.valueOf(e.getValue())))
@@ -59,11 +59,11 @@ public interface PlusTransformer {
             Nil125FixPremain.log.debug("=================== JAVA DEBUG INFO ===================");
         }
 
-        static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
+        public static void removePrintlns(InsnBuilder builder, PatchContext ctx) {
             removePrintlns(builder, ctx, false);
         }
 
-        static void removePrintlns(InsnBuilder builder, PatchContext ctx, boolean alsoStdErr) {
+        public static void removePrintlns(InsnBuilder builder, PatchContext ctx, boolean alsoStdErr) {
             List<String> streams = new ArrayList<>();
             streams.add("out");
             if (alsoStdErr) {
@@ -107,13 +107,13 @@ public interface PlusTransformer {
             }
         }
 
-        static InsnList toInsnList(AbstractInsnNode... insns) {
+        public static InsnList toInsnList(AbstractInsnNode... insns) {
             InsnList li = new InsnList();
             for (AbstractInsnNode ain : insns) li.add(ain);
             return li;
         }
 
-        static Object getMinecraftInstance() {
+        public static Object getMinecraftInstance() {
             return DeferredUtils.getMinecraftInstance();
         }
 
@@ -126,8 +126,8 @@ public interface PlusTransformer {
      */
     final class DeferredUtils {
 
-        static Object getMinecraftInstance() {
-            return ModLoader.getMinecraftInstance();
+        private static Object getMinecraftInstance() {
+            return Minecraft.theMinecraft;
         }
 
     }
