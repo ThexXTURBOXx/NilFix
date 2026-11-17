@@ -27,9 +27,9 @@ public class MAtExpansionFetcherTransformer extends MiniPlusTransformer {
 
         public static URL useMirror(URL url) {
             String s = url.toString();
-            if (s.contains("ha3extra.googlecode.com/svn/trunk/matmos/")) {
-                s = s.replace("ha3extra.googlecode.com/svn/trunk/matmos/",
-                        "raw.githubusercontent.com/ThexXTURBOXx/NilFix/tree/1.2.5/mirror/matmos/");
+            if (s.contains("ha3extra.googlecode.com/svn/trunk/")) {
+                s = s.replace("ha3extra.googlecode.com/svn/trunk/",
+                        "raw.githubusercontent.com/NicosMinecraftArchive/ha3extra/refs/heads/master/");
                 s = s.replace("http://", "https://");
             }
 
