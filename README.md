@@ -11,10 +11,11 @@ Not every Minecraft version needs the same fixes. Some fixes may not be availabl
 ### Enabled by default
 
 These patches are enabled by default, but can still be turned off in the config, if wanted:
-- [General] Add "Ding" when game is loaded
 - [General] Remove/skip broken update checkers
 - [General] Remove/skip debug logs from the console
+- [Vanilla] Add "Ding" when game is loaded
 - [Vanilla] Fix "The End?" achievement not triggering
+- [Vanilla] Add tooltip API to add custom info to Vanilla tooltips
 - [Vanilla] Harden help command against improperly implemented commands
 - [Vanilla] Fix silent error in the background when server list is empty
 - [Vanilla] Fix many rendering bugs on some Intel graphics driver versions (credits to [TheMasterCaver](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1294926-themastercavers-world?comment=294))
@@ -73,5 +74,5 @@ You can enable these patches in the config:
 **A**: For MC 1.3 and above: I think (and hope) that NilFix should work on servers as-is. Let me know, if that isn't the case!  
 For MC 1.2.5 and below: not yet. The server uses very different mappings and I guess (even though, I have not tested this so far) that it is simply incompatible for now.
 
-**Q**: Are there any plans for b1.7.3/1.5.2/[any other version]?  
+**Q**: Are there any plans for b1.8.1/1.5.2/[any other version]?  
 **A**: If enough people are interested in this: yes, of course!
