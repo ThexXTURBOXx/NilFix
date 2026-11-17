@@ -17,7 +17,7 @@ jobs:
         run: |
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
             # Expected tag format: <minecraft-version>-<mod-version>, e.g. 1.2.5-1.0.16
-            if [[ "$GITHUB_REF_NAME" =~ ^([0-9]+(\.[0-9]+)+)-(.+)$ ]]; then
+            if [[ "$GITHUB_REF_NAME" =~ ^([a-z]*[0-9]+([._][0-9]+)+)-(.+)$ ]]; then
               echo "MC_MAIN_VERSION=${BASH_REMATCH[1]}" >> "$GITHUB_ENV"
               echo "MOD_VERSION=${BASH_REMATCH[3]}" >> "$GITHUB_ENV"
             else
@@ -69,6 +69,7 @@ jobs:
             Full changelog can be found on [GitHub](https://github.com/ThexXTURBOXx/NilFix/releases)
           loaders: nilloader
           environment: client* | server*
+          game-version-filter: any
           game-versions: |
             1.4.6
             1.4.7
